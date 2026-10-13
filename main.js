@@ -159,20 +159,6 @@ async function getInnerValuewithToday(keyname){
   const allVal = await getKeyValue(keyname)
   return {today:todayVal,all:allVal,yesterday:yesterdayVal};
 }
-async function  getInnerValuewithDaysAgo(keyname, daysago) {
-  const dayst = getDateString(daysago)
-  const dayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${dayst}`)
-  return dayVal
-}
-async function  getInnerValuewithMonthAgo(keyname, monthago) {
-  const monthst = getMonthString(monthago)
-  const monthVal = await getInnerValue(`${keyname}Monthes`,`${keyname}_${monthst}`)
-  return monthVal
-}
-async function getInnerValuewithHour(keyname, hour) {
-  const hourVal = await getInnerValue(`${keyname}Hours`,`${keyname}_${hour}`)
-  return hourVal
-}
 
 /*======================================
     表示数表示関数
@@ -758,13 +744,14 @@ function goAncate(){
 
 
 async function count(pageState = "Main"){
-  await incrementKey(`View_${pageState}`)
   const today = getDateString()
   const yesterday = getDateString(1)
   const rawData= await getKeyValue("View_MainDays")
   const daysData = JSON.parse(rawData)
+  console.log(daysData)
   const all = await getKeyValue("View_Main")
-  document.getElementById("view").innerHTML=`本日:${String(daysData[today])} <br> 昨日:${String(daysData[yesterday])} <br> 総数:${String(all)}`
+  document.getElementById("view").innerHTML=`本日:${String(daysData[`View_Main_${today}`] || 0)} <br> 昨日:${String(daysData[`View_Main_${yesterday}`] || 0)} <br> 総数:${String(all)}`
+  await incrementKey(`View_${pageState}`)
 }
 
 
