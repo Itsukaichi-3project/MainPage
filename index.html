@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/icon.png">
+<title>五日市子育て支援プロジェクト</title>
+
+<style>
+    /* --- 1. 全体設定と非表示制御 --- */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    /* メインコンテンツは完了まで非表示（スムーズな表示のため opacity 制御） */
+    #main-content {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease;
+    }
+
+    /* メインコンテンツ準備完了時に付与するクラス */
+    #main-content.loaded {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* --- 2. ローディング画面のスタイル --- */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* スピナーアニメーション */
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      margin-top: 16px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+
+<body>
+<div id="loading-screen">
+    <div class="spinner"></div>
+    <div class="loading-text">読み込み中..</div>
+</div>
+<div id="main-content">
+<header>
+
+  <div class="header-inner">
+    <h1 class="site-title">
+      五日市子育て支援プロジェクト
+    </h1>
+
+    <p class="site-subtitle">
+      7クラスがつくる、五日市のための取り組み
+    </p>
+    <a class="view" id="view" onclick="window.location.href = window.location.pathname + '?page=View'">表示数:</a>
+  </div>
+
+</header>
+
+
+<main>
+
+
+<!-- =================================
+     トップページ
+================================= -->
+<section class=ancate>
+  <div class="ancateButton" id="ancateButton" onclick="goAncate()">
+    五日市のさらなる改善のためアンケートにご協力ください。(googleフォームページに移動します)
+  </div>
+</section>
+<section id="top-page">
+
+  <div class="hero">
+
+    <div class="hero-small">
+      五日市子育て支援プロジェクト
+    </div>
+
+    <h1>
+      五日市を<br>
+      もっと楽しく。
+    </h1>
+
+    <p>
+      私たちは、「五日市の平日の昼間、なんだか人が少ない…？」この素朴な気づきからアンケートを実施し、分析した結果、未就学児や小学校低学年のお子様がいらっしゃる世帯より五日市に滞在できるための支援が必要であることを導きました。「五日市子育て支援プロジェクト」と題して生徒と教員が考えて作ったこの取り組みと五日市の魅力がより多くの方に届きますように。
+      <br><br>
+      五日市のお店などに置いてある作品を見つけたら、
+      このサイトと一緒に楽しんでみてください。
+    </p>
+
+  </div>
+
+
+  <h2 class="section-title">
+    作品を選ぶ
+  </h2>
+
+  <p class="section-text">
+    遊んでみたい作品を選んでください。
+  </p>
+
+
+  <div class="class-grid">
+
+
+    <!-- 1組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#D94B4B;"
+      onclick="window.location.href = window.location.pathname + '?page=Class&class=1'"
+    >
+
+      <div class="class-number">
+        1組
+      </div>
+
+      <div class="class-name">
+        英語カルタ
+      </div>
+
+      <div class="class-type">
+        英語を使って楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 2組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#E88AA4;"
+      onclick="window.location.href = window.location.pathname + '?page=Class&class=2'"
+    >
+
+      <div class="class-number">
+        2組
+      </div>
+
+      <div class="class-name">
+        英語カルタ
+      </div>
+
+      <div class="class-type">
+        英語を使って楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 3組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#D9B62B;"
+      onclick="window.location.href = window.location.pathname + '?page=Class&class=3'"
+    >
+
+      <div class="class-number">
+        3組
+      </div>
+
+      <div class="class-name">
+        国語カルタ
+      </div>
+
+      <div class="class-type">
+        ことばを楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 4組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#E87B32;"
+      onclick="window.location.href = window.location.pathname + '?page=Class&class=4'"
+    >
+
+      <div class="class-number">
+        4組
+      </div>
+
+      <div class="class-name">
+        絵本「だぁれの？」の歌
+      </div>
+
+      <div class="class-type">
+        みんなで歌おう
+      </div>
+
+    </button>
+
+
+    <!-- 5組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#8064A8;"
+      onclick="window.location.href = window.location.pathname + '?page=Class&class=5'"
+    >
+
+      <div class="class-number">
+        5組
+      </div>
+
+      <div class="class-name">
+        絵本
+      </div>
+
+      <div class="class-type">
+        お話を楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 6組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#4D83C4;"
+      onclick="window.location.href = window.location.pathname + '?page=Class&class=6'"
+    >
+
+      <div class="class-number">
+        6組
+      </div>
+
+      <div class="class-name">
+        サイエンスグッズ
+      </div>
+
+      <div class="class-type">
+        理科を楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 7組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#5A9A63;"
+      onclick="window.location.href = window.location.pathname + '?page=Class&class=7'"
+    >
+
+      <div class="class-number">
+        7組
+      </div>
+
+      <div class="class-name">
+        絵本
+      </div>
+
+      <div class="class-type">
+        お話を楽しもう
+      </div>
+
+    </button>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =================================
+     クラス詳細ページ
+================================= -->
+
+<section id="work-page" class="hidden">
+
+  <button
+    class="back-button"
+    onclick="window.location.href = window.location.pathname + '?page=Main'"
+  >
+    ← クラス一覧へ戻る
+  </button>
+
+
+  <div
+    id="work-header"
+    class="work-header"
+  >
+
+    <div
+      id="work-class"
+      class="work-class"
+    ></div>
+
+    <h2
+      id="work-title"
+      class="work-title"
+    ></h2>
+
+    <div
+      id="work-category"
+      class="work-category"
+    ></div>
+
+  </div>
+
+
+  <div class="content-grid">
+
+
+    <!-- 作品紹介 -->
+
+    <div class="content-box full">
+
+      <h3>
+        作品について
+      </h3>
+
+      <p id="work-description"></p>
+
+    </div>
+
+
+    <!-- 遊び方 -->
+
+    <div class="content-box full">
+
+      <h3>
+        遊び方
+      </h3>
+
+      <p id="work-howto"></p>
+
+    </div>
+
+
+    <!-- 写真 -->
+
+    <div class="content-box full">
+
+      <h3>
+        作品の様子
+      </h3>
+
+      <div id="photo-area"></div>
+
+    </div>
+
+
+    <!-- 工夫 -->
+
+    <div class="content-box full">
+
+      <h3>
+        制作の工夫
+      </h3>
+
+      <div id="work-point-container" class="comment-list"></div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+<!--表示数表示ページ-->
+<section id="view-page" class="hidden">
+  <button
+    class="back-button"
+    onclick="window.location.href = window.location.pathname + '?page=Main'"
+  >
+    ← クラス一覧へ戻る
+  </button>
+  <div class="content-grid view-grid">
+    <div class="content-box full view-all">
+      <h3>現在の総アクセス数</h3>
+      <p id="viewPage_All"></p>
+    </div>
+    <div class="content-box view-week">
+      <h3>1週間のアクセス</h3>
+      <p id="viewPage_week"></p>
+    </div>
+    <div class="content-box view-month">
+      <h3>月ごとのアクセス</h3>
+      <p id="viewPage_month"></p>
+    </div>
+    <div class="content-box view_time">
+      <h3>時間ごとのアクセス</h3>
+      <p id="viewPage_time"></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-card" style="--class-color:#555;" onclick="window.location.href = window.location.pathname">
+      <div class="footer-number">⌂</div>
+      <div class="footer-name">トップページ</div>
+    </div>
+    <div class="footer-card" style="--class-color:#D94B4B;" onclick="window.location.href = window.location.pathname + '?page=Class&class=1'">
+      <div class="footer-number">1組</div>
+      <div class="footer-name">英語カルタ</div>
+    </div>
+    <div class="footer-card" style="--class-color:#E88AA4;" onclick="window.location.href = window.location.pathname + '?page=Class&class=2'">
+      <div class="footer-number">2組</div>
+      <div class="footer-name">英語カルタ</div>
+    </div>
+    <div class="footer-card" style="--class-color:#D9B62B;" onclick="window.location.href = window.location.pathname + '?page=Class&class=3'">
+      <div class="footer-number">3組</div>
+      <div class="footer-name">国語カルタ</div>
+    </div>
+    <div class="footer-card" style="--class-color:#E87B32;" onclick="window.location.href = window.location.pathname + '?page=Class&class=4'">
+      <div class="footer-number">4組</div>
+      <div class="footer-name">絵本「だぁれの？」の歌</div>
+    </div>
+    <div class="footer-card" style="--class-color:#8064A8;" onclick="window.location.href = window.location.pathname + '?page=Class&class=5'">
+      <div class="footer-number">5組</div>
+      <div class="footer-name">絵本</div>
+    </div>
+    <div class="footer-card" style="--class-color:#4D83C4;" onclick="window.location.href = window.location.pathname + '?page=Class&class=6'">
+      <div class="footer-number">6組</div>
+      <div class="footer-name">サイエンスグッズ</div>
+    </div>
+    <div class="footer-card" style="--class-color:#5A9A63;" onclick="window.location.href = window.location.pathname + '?page=Class&class=7'">
+      <div class="footer-number">7組</div>
+      <div class="footer-name">絵本</div>
+    </div>
+  </div>
+  五日市子育て支援プロジェクト
+</footer>
+<!-- トップへ戻るボタン -->
+<button id="page-top" aria-label="ページ最上部へ戻る">↑</button>
+</div>
+<script>
+    (async function() {
+      const user = 'suugaku0';
+      const repo = 'itsukaichi-3project';
+      const branch = 'main';
+
+      // 1. CSS/JSを動的に生成してPromise化する関数
+      function loadCSS(url) {
+        return new Promise((resolve, reject) => {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = url;
+          link.onload = () => resolve();
+          link.onerror = () => reject(new Error(`CSS読み込み失敗: ${url}`));
+          document.head.appendChild(link);
+        });
+      }
+
+      function loadJS(url) {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = url;
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error(`JS読み込み失敗: ${url}`));
+          document.head.appendChild(script);
+        });
+      }
+
+      try {
+        // 2. version.json を取得（キャッシュを回避するために no-cache を指定）
+        // ※ raw.githack.com を使って直読み、または GitHub Pages 等のURLを指定
+        const versionUrl = `https://raw.githack.com/${user}/${repo}/${branch}/version.json?raw=true`;
+        const res = await fetch(versionUrl, { cache: 'no-cache' });
+        
+        if (!res.ok) throw new Error('version.json の取得に失敗しました');
+        const data = await res.json();
+        
+        // 最新コミットハッシュ（更新がない場合は前と同じ値＝キャッシュが効く）
+        const versionParam = '?v=' + data.v;
+
+        // 3. 最新バージョンパラメータを付与したURLを設定
+        const cssUrl = `https://cdn.statically.io/gh/${user}/${repo}@${branch}/main.css${versionParam}`;
+        const jsUrl  = `https://cdn.statically.io/gh/${user}/${repo}@${branch}/main.js${versionParam}`;
+
+        // 4. CSSとJSを並列でロード
+        await Promise.all([
+          loadCSS(cssUrl),
+          loadJS(jsUrl)
+        ]);
+
+        // 5. 読み込み完了後、ローディング画面を解除
+        const loadingScreen = document.getElementById('loading-screen');
+        const mainContent = document.getElementById('main-content');
+
+        loadingScreen.classList.add('hidden');
+        mainContent.classList.add('loaded');
+
+      } catch (error) {
+        console.error(error);
+        
+        // フォールバック処理（バージョン指定なしで読み込みを試みる）
+        const cssUrl = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/style.css`;
+        const jsUrl  = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/script.js`;
+        
+        Promise.all([loadCSS(cssUrl), loadJS(jsUrl)]).then(() => {
+          document.getElementById('loading-screen').classList.add('hidden');
+          document.getElementById('main-content').classList.add('loaded');
+        }).catch(() => {
+          const loadingText = document.querySelector('.loading-text');
+          if (loadingText) loadingText.textContent = 'ページの読み込みに失敗しました。';
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
