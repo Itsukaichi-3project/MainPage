@@ -1,7 +1,7 @@
 /*======================================
     アクセス数API関数
 ======================================*/
-const API_URL = 'https://itsukaichi-3project.gengpingbanben4.workers.dev';
+const API_URL = 'https://mainworker.itsukaichi-3project.workers.dev';
 
 /**
  * 1. 指定した日数前の日付文字列（YYYY-MM-DD）を返す関数
