@@ -173,11 +173,12 @@ async function getInnerValuewithHour(keyname, hour) {
   const hourVal = await getInnerValue(`${keyname}Hours`,`${keyname}_${hour}`)
   return hourVal
 }
+
 /*======================================
     表示数表示関数
 ======================================*/
 
-async function openViews(){
+async function openViews(pagetype = "Main"){
   document
     .getElementById("top-page")
     .classList.add("hidden");
@@ -190,19 +191,22 @@ async function openViews(){
     .getElementById("view-page")
     .classList.remove("hidden")
 
+  const daysData = await getKeyValue(`View_${pagetype}Days`)
+  const monthesData = await getKeyValue(`View_${pagetype}Monthes`)
+  const hoursData = await getKeyValue(`View_${pagetype}Hours`)
   const viewPage = document.getElementById("view-page")
   viewPage.style.setProperty("--current-color","#444")
   const bascs = await getInnerValuewithToday("View_Main")
   document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
 
   for(let i =0;i<7;i++){
-    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)} : ${await getInnerValuewithDaysAgo(`View_${"Main"}`,i)} <br>`
+    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)} : ${daysData[`View_${pagetype}_${getDateString(i)}`] || 0} <br>`
   }
   for(let i = 0; i<12; i++){
-    document.getElementById("viewPage_month").innerHTML += `${getMonthString(i)} : ${await getInnerValuewithMonthAgo(`View_${"Main"}`,i)} <br>`
+    document.getElementById("viewPage_month").innerHTML += `${getMonthString(i)} : ${monthesData[`View_${pagetype}_${getMonthString(i)}`] || 0} <br>`
   }
   for(let i =0; i<24; i++){
-    document.getElementById("viewPage_time").innerHTML += `${i}:00~${i+1}:00 : ${await getInnerValuewithHour(`View_${"Main"}`,i)} <br>`
+    document.getElementById("viewPage_time").innerHTML += `${i}:00~${i+1}:00 : ${hoursData[`View_${pagetype}_${i}`] || 0} <br>`
   }
 }
 /* =====================================
@@ -755,9 +759,12 @@ function goAncate(){
 
 async function count(pageState = "Main"){
   await incrementKey(`View_${pageState}`)
-  const count= await getInnerValuewithToday(`View_Main`)
-  console.log(count)
-  document.getElementById("view").innerHTML=`本日:${String(count.today)} <br> 昨日:${String(count.yesterday)} <br> 総数:${String(count.all)}`
+  const today = getDateString()
+  const yesterday = getDateString(1)
+  const rawData= await getKeyValue("View_MainDays")
+  const daysData = JSON.parse(rawData)
+  const all = await getKeyValue("View_Main")
+  document.getElementById("view").innerHTML=`本日:${String(daysData[today])} <br> 昨日:${String(daysData[yesterday])} <br> 総数:${String(all)}`
 }
 
 
