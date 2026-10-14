@@ -128,8 +128,27 @@ async function setInnerValue(kvKey, innerKey, value) {
  */
 async function incrementInnerValue(kvKey, innerKey) {
   const rawValue = await getInnerValue(kvKey,innerKey)
-  const newValue =rawValue+1
-  await setInnerValue(kvKey,innerKey,newValue)
+  const value =rawValue+1
+  let data = {};
+  try {
+      console.log("setInnerValueのJSON取得は実行された。")
+      const parsed=JSON.parse(rawValue)
+      if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)){
+        data = parsed;
+      }else{
+        data={};
+      }
+  } catch (e) {
+      data = {};
+      console.log("setInnerValueのJSON取得はエラーになった。")
+  }
+  
+  // 特定のキーの値を書き換え
+  data[innerKey] = value;
+  
+  // JSON文字列に戻してKVに保存
+  const updatedJsonString = JSON.stringify(data);
+  const newValue = await setKeyValue(kvKey, updatedJsonString);
   return newValue
 }
 async function incrementInnerValuewithToday(keyname){
