@@ -196,9 +196,12 @@ async function openViews(pagetype = "Main"){
     .getElementById("view-page")
     .classList.remove("hidden")
 
-  const daysData = await getKeyValue(`View_${pagetype}Days`)
-  const monthesData = await getKeyValue(`View_${pagetype}Monthes`)
-  const hoursData = await getKeyValue(`View_${pagetype}Hours`)
+  const daysrawData = await getKeyValue(`View_${pagetype}Days`)
+  const monthesrawData = await getKeyValue(`View_${pagetype}Monthes`)
+  const hourrawData = await getKeyValue(`View_${pagetype}Hours`)
+  const daysData = daysrawData ? JSON.parse(daysrawData) : {}
+  const monthesData = monthesrawData ? JSON.parse(monthesrawData) : {}
+  const hoursData = hourrawData ? JSON.parse(hourrawData) : {}
   const viewPage = document.getElementById("view-page")
   viewPage.style.setProperty("--current-color","#444")
   const bascs = await getInnerValuewithToday("View_Main")
