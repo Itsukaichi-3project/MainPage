@@ -369,23 +369,19 @@ footer {
    内容カード
 ========================= */
 .view-grid {
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr) !important;
 }
 .view-all{
-  grid-column: 1/3;
-  grid-row: 1;
+  grid-column: 1 / -1;
 }
 .view-week {
   grid-column :1;
-  grid-row: 2;
 }
 .view-month {
   grid-column:1;
-  grid-row:3;
 }
 .view-time{
   grid-column:2;
-  grid-row: 2/3;
 }
 .content-grid {
   display: grid;
