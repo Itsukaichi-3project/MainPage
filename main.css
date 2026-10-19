@@ -373,19 +373,17 @@ footer {
 }
 .view-all{
   grid-column: 1 / -1;
-  grid-row: 1;
+
 }
 .view-week {
   grid-column :1;
-  grid-row : 2;
 }
 .view-month {
   grid-column:1;
-  grid-row :3
 }
 .view-time{
   grid-column:2;
-  grid-row:2 / 3;
+  grid-row:2 / 4;
 }
 .content-grid {
   display: grid;
