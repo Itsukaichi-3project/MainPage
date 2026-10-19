@@ -192,7 +192,7 @@ async function openViews(pagetype = "Main"){
   const hoursData = hourrawData ? JSON.parse(hourrawData) : {}
   const viewPage = document.getElementById("view-page")
   viewPage.style.setProperty("--current-color","#444")
-  const bascs = await getInnerValuewithToday("View_Main")
+  const bascs = await getInnerValuewithToday(`View_${pagetype}`)
   document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
 
   for(let i =0;i<7;i++){
