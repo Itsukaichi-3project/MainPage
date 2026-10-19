@@ -785,6 +785,7 @@ async function count(pageState = "Main"){
 const urlParams = new URLSearchParams(window.location.search);
 const pageState = urlParams.get("page") ?? "Main"
 const classNumberSt = urlParams.get("class") ?? ""
+const viewTypeSt = urlParams.get("viewtype") ?? "Main"
 count(pageState+classNumberSt)
 
 if (!pageState){
@@ -799,5 +800,13 @@ if (!pageState){
     console.log("クラス番号が有効ではありません")
   }
 }else if(pageState=="View"){
-  openViews()
+  openViews(viewTypeSt)
 }
+/*==========================================
+viewページセレクト処理
+==========================================*/
+const typeSelect = document.getElementById("view_type")
+typeSelect.addEventListener("change",(event) => {
+  const type = event.target.value;
+  window.location.href=window.location.pathname + `?page=View&viewtype=${type}`
+});
