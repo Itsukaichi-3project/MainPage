@@ -817,7 +817,7 @@ if (!pageState){
   goHome();
 }else if(pageState=="Class"){
   const classNumber = Number(classNumberSt)
-  if ([1,2,3,4,5,6,7].includes(classNumber)){
+  if ([0,1,2,3,4,5,6,7].includes(classNumber)){
     openClass(classNumber)
   }else{
     console.log("クラス番号が有効ではありません")
