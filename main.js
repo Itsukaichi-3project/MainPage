@@ -210,6 +210,36 @@ async function openViews(pagetype = "Main"){
 ===================================== */
 
 const works = {
+  0:{
+    className: "全体",
+
+    title: "分析結果",
+
+    category: "中学生の分析は？",
+
+    color:"#FFF",
+    bgColor: "#FDF2F2",
+
+    description:
+      "中学生がアンケート結果を分析して作ったポスターです\n各クラス特色があるのでぜひ見てみてください。",
+    
+    howto:
+      "",
+    
+    
+    points:[
+      {
+        role:"teacher",
+        author:"指導した先生",
+        text:""
+      },
+      {
+        role:"student",
+        autohr:"協力した生徒",
+        text:""
+      }
+    ]
+  },
 
   1: {
 
@@ -356,10 +386,7 @@ const works = {
     howto:
       "絵本を見ながら歌ったり、情景を想像しながら歌ってみてください。",
 
-    photo: null,
-
-    lyrics:
-       "猫が　ウサギと　すれ違った\n「あれ？」　あのマフラーは　もしかして　さっきの？\n ねずみさん　このマフラーは君のかい？\n いや、僕にはこの小さいマフラーがあるよ\n それじゃ\n 牛さん　このマフラーは君のかい？\n いや、僕にはこの大きいマフラーがあるよ\n それじゃ\n トラさん　このマフラーは君のかい？\n いや、僕にはこのかっこいいマフラーがあるよ\n それじゃ\n 龍さん　このマフラーは君のかい？\n いや、僕にはこのかわいいマフラーがあるよ\n ねこは\n さる　うま　ひつじ　さるにとり　いぬやいのししにききました\n けれどもみんなすてきな\n マフラーを持っています\n あきらめかけた　その時\n 寒さにこごえる　ウサギの姿が見えました\n うさぎさん　うさぎさん\n このマフラーは君のかい？\n 「これ、僕のー！」\n ありがとう　助かった\n これは僕のお気に入り\n いいえ　もう　つぎはおとさないでね。",
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-5.png",
     points: [
       {
         role: "teacher",
@@ -560,7 +587,11 @@ function openClass(classNumber) {
     .textContent =
       work.howto;
 
-
+  if(classNumber==0){
+    document.getElementById("work-howto").classList.add("hidden")
+  }else{
+    document.getElementById("work-howto").classList.remove("hidden")
+  }
   /* =================================
      制作の工夫（複数人の吹き出しを自動生成）
   ================================= */
@@ -629,19 +660,10 @@ function openClass(classNumber) {
 
     photoArea.appendChild(image);
 
-  }else if([4].includes(Number(classNumber))){
-     photoArea.innerHTML = 
-        `<div class="lyrics">
-           ${work.lyrics}
-         </div>
-        `;
-  } else {
-
     photoArea.innerHTML =
       `<div class="photo-placeholder">
         作品の写真をここに掲載できます
       </div>`;
-
   }
 
 /* =================================
