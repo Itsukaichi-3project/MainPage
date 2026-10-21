@@ -225,7 +225,7 @@ const works = {
     
     howto:
       "",
-    
+    photo:"https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-0.png",
     
     points:[
       {
@@ -238,7 +238,8 @@ const works = {
         autohr:"協力した生徒",
         text:""
       }
-    ]
+    ],
+    audioLink:"",
   },
 
   1: {
@@ -699,7 +700,7 @@ if (work.externalLink) {
 
 }
 
-if ([1, 2, 4].includes(Number(classNumber))) {
+if ([0,1, 2, 4].includes(Number(classNumber))) {
   const audioButton = document.createElement(work.audioLink ? "a" : "button");
   audioButton.className = "external-link";
   audioButton.textContent = classNumber === 4 ? "歌を聞く" : "読み上げ音声を聞く";
