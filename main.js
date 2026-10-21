@@ -291,7 +291,7 @@ const works = {
       }
     ],
 
-    audioLink: "https://output.jsbin.com/xegisaq"
+    audioLink: "https://output.jsbin.com/bayadon"
 
   },
 
@@ -378,7 +378,7 @@ const works = {
       }
     ],
 
-    audioLink: "https://output.jsbin.com/qeqowam?path=music_3-4.m4a"
+    audioLink: "https://output.jsbin.com/loqebev?path=music_3-4.m4a"
 
   },
 
