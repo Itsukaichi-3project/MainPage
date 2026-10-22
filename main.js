@@ -387,7 +387,7 @@ const works = {
     howto:
       "絵本を見ながら歌ったり、情景を想像しながら歌ってみてください。",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-5.png",
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-4.png",
     points: [
       {
         role: "teacher",
@@ -660,11 +660,6 @@ function openClass(classNumber) {
       work.className + "の作品";
 
     photoArea.appendChild(image);
-
-    photoArea.innerHTML =
-      `<div class="photo-placeholder">
-        作品の写真をここに掲載できます
-      </div>`;
   }
 
 /* =================================
