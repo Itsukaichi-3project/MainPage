@@ -210,7 +210,7 @@ async function openViews(pagetype = "Main"){
 ===================================== */
 
 const works = {
-  0:{
+  0: {
     className: "全体",
 
     title: "分析結果",
@@ -231,12 +231,12 @@ const works = {
       {
         role:"teacher",
         author:"指導した先生",
-        text:""
+        text:"aaa"
       },
       {
-        role:"student",
-        autohr:"協力した生徒",
-        text:""
+        role: "student",
+        autohr: "協力した生徒",
+        text:"bbb"
       }
     ],
     audioLink:"",
