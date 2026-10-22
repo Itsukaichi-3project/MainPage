@@ -225,7 +225,7 @@ const works = {
     
     howto:
       "",
-    photo:"https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-0.jpg",
+    photo:"https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/Images/3-0.jpg",
     
     points:[
       {
@@ -259,7 +259,7 @@ const works = {
     howto:
       "①四角い取り札を並べる\n②丸い読み札をに書かれている単語をランダムに読むか、サイトで再生する。\n③読まれた札を取る\n④一番多く札を取れた人が勝ち!\n［神経衰弱の場合］①丸い方と四角い方の札を全て裏側にして全部並べる。\n②丸い札を一枚裏返し、次に四角い札を一枚裏返す。\n③どちらも絵と単語が同じだったらその2枚をもらうことができる。\n④一番多く札を取れたが勝ち！",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-1.png",
+    photo: "https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/Images/3-1.png",
 
     // 担任の先生 ＋ 生徒の意見（2〜3人分をここに追加できます）
     points: [
@@ -302,7 +302,7 @@ const works = {
     howto:
       "①取り札を並べる\n②読み札をランダムに読むか、サイトで再生する\n③読まれた札を取る\n④一番多く札を取れた人が勝ち！",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-2.png",
+    photo: "https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/Images/3-2.png",
 
     points: [
       {
@@ -344,7 +344,7 @@ const works = {
     howto:
       "①絵のかかれた「取り札」をバラバラに並べる\n②読む人を決めてランダムに読むorオリジナル読み上げサイト「ことのはカルタ」を利用する\n③読み上げられた頭文字の「取り札」をとる→一番早く触れた人がその札をゲットできる\n④すべての取り札がなくなったとき、一番多く絵札を持っている人が勝ち！",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-3.png",
+    photo: "https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/Images/3-3.png",
 
     points: [
       {
@@ -387,7 +387,7 @@ const works = {
     howto:
       "絵本を見ながら歌ったり、情景を想像しながら歌ってみてください。",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-4.jpg",
+    photo: "https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/Images/3-4.jpg",
     points: [
       {
         role: "teacher",
@@ -428,7 +428,7 @@ const works = {
     howto:
       "①まずは親子で一緒に読んでみよう。\n②歌付きの絵本動画をQRで読み込んでお子様と一緒に楽しんでみよう。",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-5.png",
+    photo: "https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/Images/3-5.png",
 
     points: [
       {
@@ -472,7 +472,7 @@ const works = {
     howto:
       "Aシマシマギョの冒険（詳細は「浮沈子」で検索\n ①ペットボトルを「グッ！」と押してみよう。\n ②魚が沈んだら、今度は手を離してみよう？！\n B磁石でGO！\n ①リンゴマークがついた磁石をスタート位置に置こう。\n ②割りばしの先についた磁石を近づけて、スタートに置いた磁石を反発させてゴールまで連れて行こう。",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-6.png",
+    photo: "https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/Images/3-6.png",
 
     points: [
       {
@@ -512,7 +512,7 @@ const works = {
     howto:
       "音を想像しながら読んでみる",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-7.png",
+    photo: "https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/Images/3-7.png",
 
     points: [
       {
