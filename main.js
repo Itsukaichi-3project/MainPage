@@ -217,7 +217,7 @@ const works = {
 
     category: "中学生の分析は？",
 
-    color:"#FFF",
+    color:"#000",
     bgColor: "#FDF2F2",
 
     description:
