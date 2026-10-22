@@ -225,7 +225,7 @@ const works = {
     
     howto:
       "",
-    photo:"https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-0.png",
+    photo:"https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-0.jpg",
     
     points:[
       {
@@ -387,7 +387,7 @@ const works = {
     howto:
       "絵本を見ながら歌ったり、情景を想像しながら歌ってみてください。",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-4.png",
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-4.jpg",
     points: [
       {
         role: "teacher",
