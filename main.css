@@ -214,7 +214,7 @@ main {
   margin-top: 10px;
   font-size: 25px;
   font-weight: 700;
-  color: #000000;
+  color: var(--class-color);
 }
 
 .class-type {
