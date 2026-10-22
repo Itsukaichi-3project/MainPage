@@ -235,7 +235,7 @@ const works = {
       },
       {
         role: "student",
-        autohr: "協力した生徒",
+        author: "協力した生徒",
         text:"bbb"
       }
     ],
