@@ -917,6 +917,7 @@ footer {
   text-decoration: none;
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
+.poster-card[data-class="0"] { --class-color: #000000; }
 .poster-card[data-class="1"] { --class-color: #D94B4B; }
 .poster-card[data-class="2"] { --class-color: #E88AA4; }
 .poster-card[data-class="3"] { --class-color: #D9B62B; }
