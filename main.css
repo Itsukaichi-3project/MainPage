@@ -878,9 +878,7 @@ footer {
   font-weight: 700;
   text-decoration: none;
 }
-.process-jump::after { content: "↗"; transition: transform .18s ease; }
 .process-jump:hover { text-decoration: underline; }
-.process-jump:hover::after { transform: translateY(-3px); transform: translateX(3px); }
 .process-js .process-reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -898,3 +896,62 @@ footer {
   font-weight: 700;
   letter-spacing: .1em;
 }
+
+/*分析ページ*/
+.poster-section { margin: 68px 0 64px; }
+.poster-heading { margin-bottom: 24px; }
+.poster-lead { margin: 0; color: #6f7781; line-height: 1.8; }
+.poster-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+.poster-card {
+  position: relative;
+  display: flex;
+  min-height: 142px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  overflow: hidden;
+  border: 1px solid #e8eaf0;
+  border-radius: 16px;
+  background: #fff;
+  color: #303640;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.poster-card[data-class="1"] { --class-color: #D94B4B; }
+.poster-card[data-class="2"] { --class-color: #E88AA4; }
+.poster-card[data-class="3"] { --class-color: #D9B62B; }
+.poster-card[data-class="4"] { --class-color: #E87B32; }
+.poster-card[data-class="5"] { --class-color: #8064A8; }
+.poster-card[data-class="6"] { --class-color: #4D83C4; }
+.poster-card[data-class="7"] { --class-color: #5A9A63; }
+.poster-card:hover {
+  transform: translateY(-3px);
+  border-color: #d4d7dc;
+  box-shadow: 0 10px 24px rgba(37, 48, 72, .09);
+}
+.poster-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.poster-number { color: #69717b; font-size: 12px; font-weight: 700; letter-spacing: .12em; }
+.poster-number::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0 7px 1px 0;
+  border-radius: 50%;
+  background: var(--class-color);
+  vertical-align: middle;
+}
+.poster-file-icon {
+  display: grid;
+  width: 35px;
+  height: 35px;
+  place-items: center;
+  border-radius: 10px;
+  background: #f1f2f3;
+  color: #777f88;
+  font-size: 11px;
+  font-weight: 800;
+}
+.poster-card-title { margin: 15px 0 0; font-size: 17px; font-weight: 700; }
+.poster-open { margin-top: 10px; color: #68717a; font-size: 13px; font-weight: 700; }
+.poster-note { margin: 16px 0 0; color: #858c95; font-size: 12px; line-height: 1.7; }
