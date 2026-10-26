@@ -746,6 +746,8 @@ footer {
   background-color: #555;
 }
 
+/*process関係*/
+
 .process-section {
   --process-ink: #282d35;
   --process-muted: #6f7781;
@@ -876,6 +878,6 @@ footer {
   font-weight: 700;
   text-decoration: none;
 }
-.process-jump::after { content: "↓"; transition: transform .18s ease; }
+.process-jump::after { content: "↗"; transition: transform .18s ease; }
 .process-jump:hover { text-decoration: underline; }
-.process-jump:hover::after { transform: translateY(3px); }
+.process-jump:hover::after { transform: translateY(-3px); transform: translateX(3px); }
