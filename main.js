@@ -172,18 +172,11 @@ async function getInnerValuewithToday(keyname){
 ======================================*/
 
 async function openViews(pagetype = "Main"){
-  document
-    .getElementById("top-page")
-    .classList.add("hidden");
-
-  document
-    .getElementById("work-page")
-    .classList.add("hidden");
-  
+  closePages()
   document
     .getElementById("view-page")
     .classList.remove("hidden")
-
+  
   const daysrawData = await getKeyValue(`View_${pagetype}Days`)
   const monthesrawData = await getKeyValue(`View_${pagetype}Monthes`)
   const hourrawData = await getKeyValue(`View_${pagetype}Hours`)
@@ -205,43 +198,38 @@ async function openViews(pagetype = "Main"){
     document.getElementById("viewPage_time").innerHTML += `${i}:00~${i+1}:00 : ${hoursData[`View_${pagetype}_${i}`] || 0} <br>`
   }
 }
+
+/* =====================================
+    ページ管理用関数
+===================================== */
+function closePages(){
+  document
+    .getElementById("work-page")
+    .classList.add("hidden");
+
+  document
+    .getElementById("top-page")
+    .classList.add("hidden");
+  
+  document
+    .getElementById("view-page")
+    .classList.add("hidden")
+
+  document
+    .getElementById("analysis-page")
+    .classList.add("hidden")
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
 /* =====================================
    作品情報（ここに生徒2〜3人の意見をそれぞれ設定できます）
 ===================================== */
 
 const works = {
-  0: {
-    className: "全体",
-
-    title: "分析結果",
-
-    category: "中学生の分析は？",
-
-    color:"#000",
-    bgColor: "#FDF2F2",
-
-    description:
-      "中学生がアンケート結果を分析して作ったポスターです\n各クラス特色があるのでぜひ見てみてください。",
-    
-    howto:
-      "",
-    photo:"https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/Images/3-0.jpg",
-    
-    points:[
-      {
-        role:"teacher",
-        author:"指導した先生",
-        text:"aaa"
-      },
-      {
-        role: "student",
-        author: "協力した生徒",
-        text:"bbb"
-      }
-    ],
-    audioLink:"",
-  },
-
   1: {
 
     className: "1組",
@@ -540,14 +528,7 @@ function openClass(classNumber) {
 
   const work = works[classNumber];
 
-
-  document
-    .getElementById("top-page")
-    .classList.add("hidden");
-
-  document
-    .getElementById("view-page")
-    .classList.add("hidden");
+  closePages()
 
   document
     .getElementById("work-page")
@@ -588,11 +569,6 @@ function openClass(classNumber) {
     .textContent =
       work.howto;
 
-  if(classNumber==0){
-    document.getElementById("work-howto").classList.add("hidden")
-  }else{
-    document.getElementById("work-howto").classList.remove("hidden")
-  }
   /* =================================
      制作の工夫（複数人の吹き出しを自動生成）
   ================================= */
@@ -695,7 +671,7 @@ if (work.externalLink) {
 
 }
 
-if ([0,1, 2, 4].includes(Number(classNumber))) {
+if ([1, 2, 4].includes(Number(classNumber))) {
   const audioButton = document.createElement(work.audioLink ? "a" : "button");
   audioButton.className = "external-link";
   audioButton.textContent = classNumber === 4 ? "絵本つきの映像をみる" : classNumber === 0 ? "各クラスのポスターを見る" :"読み上げ音声を聞く";
@@ -718,28 +694,28 @@ if ([0,1, 2, 4].includes(Number(classNumber))) {
   });
 
 }
-
+/* =====================================
+    分析ページを開く
+===================================== */
+function openAnalysis() {
+  closePages()
+  document
+    .getElementById("analysis-page")
+    .classList.remove("hidden")
+  
+}
 
 /* =====================================
    トップに戻る
 ===================================== */
 
 function goHome() {
-
-  document
-    .getElementById("work-page")
-    .classList.add("hidden");
+  closePages()
 
   document
     .getElementById("top-page")
     .classList.remove("hidden");
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
+  
 }
 
 /*======================================
@@ -819,6 +795,8 @@ if (!pageState){
   }
 }else if(pageState=="View"){
   openViews(viewTypeSt)
+}else if(pageState=="Analysis"){
+  openAnalysis()
 }
 /*==========================================
 viewページセレクト処理
