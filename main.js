@@ -834,7 +834,7 @@ typeSelect.addEventListener("change",(event) => {
 /*=============================================
 マップ関数
 =============================================*/
-const GOOGLE_MY_MAPS_EMBED_URL = 'https://www.google.com/maps/d/edit?mid=1Qqnri_VQ0kdQzX8EJ_DfwzxNvAdB4QI&usp=sharing';
+const GOOGLE_MY_MAPS_EMBED_URL = 'https://www.google.com/maps/d/embed?mid=1Qqnri_VQ0kdQzX8EJ_DfwzxNvAdB4QI&ehbc=2E312F';
 
 (function showGoogleMyMaps() {
   const mapArea = document.getElementById('google-map-area');
