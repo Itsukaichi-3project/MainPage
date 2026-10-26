@@ -806,3 +806,27 @@ typeSelect.addEventListener("change",(event) => {
   const type = event.target.value;
   window.location.href=window.location.pathname + `?page=View&viewtype=${type}`
 });
+
+/*==========================================
+プロセス表示処理
+==========================================*/
+(function initProcessReveal() {
+    const steps = document.querySelectorAll('.process-reveal');
+    if (!steps.length) return;
+    document.documentElement.classList.add('process-js');
+
+    if (!('IntersectionObserver' in window)) {
+      steps.forEach((step) => step.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          currentObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -35px 0px' });
+    steps.forEach((step) => observer.observe(step));
+  })();
