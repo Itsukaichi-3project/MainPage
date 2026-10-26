@@ -830,3 +830,23 @@ typeSelect.addEventListener("change",(event) => {
     }, { threshold: 0.16, rootMargin: '0px 0px -35px 0px' });
     steps.forEach((step) => observer.observe(step));
   })();
+
+/*=============================================
+マップ関数
+=============================================*/
+const GOOGLE_MY_MAPS_EMBED_URL = 'https://www.google.com/maps/d/edit?mid=1Qqnri_VQ0kdQzX8EJ_DfwzxNvAdB4QI&usp=sharing';
+
+(function showGoogleMyMaps() {
+  const mapArea = document.getElementById('google-map-area');
+  const embedUrl = GOOGLE_MY_MAPS_EMBED_URL.trim();
+  if (!mapArea || !embedUrl) return;
+
+  const frame = document.createElement('iframe');
+  frame.className = 'map-frame';
+  frame.src = embedUrl;
+  frame.title = '五日市の実施店舗マップ';
+  frame.loading = 'lazy';
+  frame.referrerPolicy = 'no-referrer-when-downgrade';
+  frame.allowFullscreen = true;
+  mapArea.replaceChildren(frame);
+})();
