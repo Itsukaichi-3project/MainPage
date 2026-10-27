@@ -671,10 +671,10 @@ if (work.externalLink) {
 
 }
 
-if ([1, 2, 4].includes(Number(classNumber))) {
+if ([2, 4].includes(Number(classNumber))) {
   const audioButton = document.createElement(work.audioLink ? "a" : "button");
   audioButton.className = "external-link";
-  audioButton.textContent = classNumber === 4 ? "絵本つきの映像をみる" : classNumber === 0 ? "各クラスのポスターを見る" :"読み上げ音声を聞く";
+  audioButton.textContent = classNumber === 4 ? "絵本つきの映像をみる" :"読み上げ音声を聞く";
 
   if (work.audioLink) {
     audioButton.href = work.audioLink;
