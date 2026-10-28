@@ -1078,6 +1078,7 @@ footer {
 .link{
   color: #0066cc;
   text-decoration: none;
+  user-select: none;
 }
 .link:hover{
   color: #ff3300;
