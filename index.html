@@ -1,76 +1,4 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/icon.png">
-<title>五日市子育て支援プロジェクト</title>
-
-<style>
-    /* --- 1. 全体設定と非表示制御 --- */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-    }
-
-    /* メインコンテンツは完了まで非表示（スムーズな表示のため opacity 制御） */
-    #main-content {
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease;
-    }
-
-    /* メインコンテンツ準備完了時に付与するクラス */
-    #main-content.loaded {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* --- 2. ローディング画面のスタイル --- */
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-
-    #loading-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    /* スピナーアニメーション */
-    .spinner {
-      width: 48px;
-      height: 48px;
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #3498db;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .loading-text {
-      margin-top: 16px;
-      color: #555;
-      font-size: 14px;
-    }
-  </style>
-</head>
-
 
 <body>
 <div id="loading-screen">
@@ -701,5 +629,3 @@
       }
     })();
   </script>
-</body>
-</html>
