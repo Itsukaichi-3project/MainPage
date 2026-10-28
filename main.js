@@ -541,111 +541,6 @@ function goAncate(){
 
 
 /*======================================
-ボタン関係
-======================================*/
-function goMainPage(){
-  window.location.href = window.location.pathname + '?page=Main'
-}
-const button_View = document.getElementById("view")
-button_View.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=View'
-})
-const button_Ancate = document.getElementById("ancateButton")
-ancateButton.addEventListener("click",goAncate)
-const button_class_0 = document.getElementById("class-card-0")
-const button_class_1 = document.getElementById("class-card-1")
-const button_class_2 = document.getElementById("class-card-2")
-const button_class_3 = document.getElementById("class-card-3")
-const button_class_4 = document.getElementById("class-card-4")
-const button_class_5 = document.getElementById("class-card-5")
-const button_class_6 = document.getElementById("class-card-6")
-const button_class_7 = document.getElementById("class-card-7")
-button_class_0.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Analysis'
-})
-button_class_1.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=1'
-})
-button_class_2.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=2'
-})
-button_class_3.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=3'
-})
-button_class_4.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=4'
-})
-button_class_5.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=5'
-})
-button_class_6.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=6'
-})
-button_class_7.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=7'
-})
-const button_back_1 = document.getElementById("back-button-1")
-button_back_1.addEventListener("click",goMainPage)
-const button_back_2 = document.getElementById("back-button-2")
-button_back_2.addEventListener("click",goMainPage)
-const button_back_3 = document.getElementById("back-button-3")
-button_back_3.addEventListener("click",goMainPage)
-const button_footer_1 = document.getElementById("footer-1")
-const button_footer_2 = document.getElementById("footer-2")
-const button_footer_3 = document.getElementById("footer-3")
-const button_footer_4 = document.getElementById("footer-4")
-const button_footer_5 = document.getElementById("footer-5")
-const button_footer_6 = document.getElementById("footer-6")
-const button_footer_7 = document.getElementById("footer-7")
-const button_footer_0 = document.getElementById("footer-0")
-button_footer_0.addEventListener("click",goMainPage)
-button_footer_1.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=1'
-})
-button_footer_2.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=2'
-})
-button_footer_3.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=3'
-})
-button_footer_4.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=4'
-})
-button_footer_5.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=5'
-})
-button_footer_6.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=6'
-})
-button_footer_7.addEventListener("click",()=>{
-  window.location.href = window.location.pathname + '?page=Class&class=7'
-})
-/*======================================
-    リンクルート管理
-======================================*/
-const urlParams = new URLSearchParams(window.location.search);
-const pageState = urlParams.get("page") ?? "Main"
-const classNumberSt = urlParams.get("class") ?? ""
-const viewTypeSt = urlParams.get("viewtype") ?? "Main"
-count(pageState+classNumberSt)
-
-if (!pageState){
-  goHome();
-}else if(pageState=="Main"){
-  goHome();
-}else if(pageState=="Class"){
-  const classNumber = Number(classNumberSt)
-  if ([0,1,2,3,4,5,6,7].includes(classNumber)){
-    openClass(classNumber)
-  }else{
-    console.log("クラス番号が有効ではありません")
-  }
-}else if(pageState=="View"){
-  openViews(viewTypeSt)
-}else if(pageState=="Analysis"){
-  openAnalysis()
-}
-/*======================================
     アクセス数API関数
 ======================================*/
 const API_URL = 'https://mainworker.itsukaichi-3project.workers.dev';
@@ -858,3 +753,108 @@ typeSelect.addEventListener("change",(event) => {
   const type = event.target.value;
   window.location.href=window.location.pathname + `?page=View&viewtype=${type}`
 });
+/*======================================
+ボタン関係
+======================================*/
+function goMainPage(){
+  window.location.href = window.location.pathname + '?page=Main'
+}
+const button_View = document.getElementById("view")
+button_View.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=View'
+})
+const button_Ancate = document.getElementById("ancateButton")
+ancateButton.addEventListener("click",goAncate)
+const button_class_0 = document.getElementById("class-card-0")
+const button_class_1 = document.getElementById("class-card-1")
+const button_class_2 = document.getElementById("class-card-2")
+const button_class_3 = document.getElementById("class-card-3")
+const button_class_4 = document.getElementById("class-card-4")
+const button_class_5 = document.getElementById("class-card-5")
+const button_class_6 = document.getElementById("class-card-6")
+const button_class_7 = document.getElementById("class-card-7")
+button_class_0.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Analysis'
+})
+button_class_1.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=1'
+})
+button_class_2.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=2'
+})
+button_class_3.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=3'
+})
+button_class_4.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=4'
+})
+button_class_5.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=5'
+})
+button_class_6.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=6'
+})
+button_class_7.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=7'
+})
+const button_back_1 = document.getElementById("back-button-1")
+button_back_1.addEventListener("click",goMainPage)
+const button_back_2 = document.getElementById("back-button-2")
+button_back_2.addEventListener("click",goMainPage)
+const button_back_3 = document.getElementById("back-button-3")
+button_back_3.addEventListener("click",goMainPage)
+const button_footer_1 = document.getElementById("footer-1")
+const button_footer_2 = document.getElementById("footer-2")
+const button_footer_3 = document.getElementById("footer-3")
+const button_footer_4 = document.getElementById("footer-4")
+const button_footer_5 = document.getElementById("footer-5")
+const button_footer_6 = document.getElementById("footer-6")
+const button_footer_7 = document.getElementById("footer-7")
+const button_footer_0 = document.getElementById("footer-0")
+button_footer_0.addEventListener("click",goMainPage)
+button_footer_1.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=1'
+})
+button_footer_2.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=2'
+})
+button_footer_3.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=3'
+})
+button_footer_4.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=4'
+})
+button_footer_5.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=5'
+})
+button_footer_6.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=6'
+})
+button_footer_7.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=7'
+})
+/*======================================
+    リンクルート管理
+======================================*/
+const urlParams = new URLSearchParams(window.location.search);
+const pageState = urlParams.get("page") ?? "Main"
+const classNumberSt = urlParams.get("class") ?? ""
+const viewTypeSt = urlParams.get("viewtype") ?? "Main"
+count(pageState+classNumberSt)
+
+if (!pageState){
+  goHome();
+}else if(pageState=="Main"){
+  goHome();
+}else if(pageState=="Class"){
+  const classNumber = Number(classNumberSt)
+  if ([0,1,2,3,4,5,6,7].includes(classNumber)){
+    openClass(classNumber)
+  }else{
+    console.log("クラス番号が有効ではありません")
+  }
+}else if(pageState=="View"){
+  openViews(viewTypeSt)
+}else if(pageState=="Analysis"){
+  openAnalysis()
+}
