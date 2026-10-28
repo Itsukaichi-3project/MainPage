@@ -783,7 +783,7 @@ const results = {
 };
 
 const panel = document.getElementById("panel");
-const count = document.getElementById("step-count");
+const step_count = document.getElementById("step-count");
 const backButton = document.getElementById("back-button");
 const resetButton = document.getElementById("reset-button");
 let current = "start";
@@ -792,7 +792,7 @@ const history = [];
 function render() {
   panel.replaceChildren();
   const isResult = Object.prototype.hasOwnProperty.call(results, current);
-  count.textContent = isResult ? "できた！" : "しつもん " + (history.length + 1);
+  step_count.textContent = isResult ? "できた！" : "しつもん " + (history.length + 1);
 
   if (isResult) {
     const result = results[current];
@@ -955,7 +955,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const pageState = urlParams.get("page") ?? "Main"
 const classNumberSt = urlParams.get("class") ?? ""
 const viewTypeSt = urlParams.get("viewtype") ?? "Main"
-count(pageState+classNumberSt)
+step_count(pageState+classNumberSt)
 
 if (!pageState){
   goHome();
