@@ -709,35 +709,35 @@ function openAnalysis() {
 ===================================== */
 const questions = {
   start: {
-    text: "きょうはどんなきぶん？",
+    text: "今日はどんな気分ですか？",
     choices: [
       { label: "ワイワイ楽しみたい", next: "lively" },
       { label: "まったり楽しみたい", next: "calm" }
     ]
   },
   lively: {
-    text: "どんなときがうれしい？",
+    text: "どんな時にうれしいと感じますか？",
     choices: [
       { label: "「あった！」を見つけたとき", next: "lively-find" },
-      { label: "みんなといっしょに楽しむとき", next: "result-4" }
+      { label: "複数人で一緒に楽しむとき", next: "result-4" }
     ]
   },
   "lively-find": {
-    text: "どっちが気になる？",
+    text: "どちらの内容が気になりますか？",
     choices: [
       { label: "ちょっと新しいものに出会いたい", next: "result-12" },
       { label: "五日市のことをもっと知りたい", next: "result-3" }
     ]
   },
   calm: {
-    text: "どっちをやってみたい？",
+    text: "どっちをやってみたいですか？",
     choices: [
-      { label: "身近なもので、ふしぎをためしてみたい！", next: "result-6" },
-      { label: "おはなしを楽しみたい", next: "calm-story" }
+      { label: "身近なもので、不思議を試してみたい！", next: "result-6" },
+      { label: "物語を楽しみたい", next: "calm-story" }
     ]
   },
   "calm-story": {
-    text: "どこへ行ってみたい？",
+    text: "どんな物語がいいですか？",
     choices: [
       { label: "マフラーのもちぬしをさがしにいこう！", next: "result-5" },
       { label: "まちの音をさがしにいこう！", next: "result-7" }
