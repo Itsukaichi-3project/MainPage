@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 
 <body>
-<div id="loading-screen">
-    <div class="spinner"></div>
-    <div class="loading-text">読み込み中..</div>
-</div>
 <div id="main-content">
 <header>
 
@@ -558,75 +554,4 @@
 <!-- トップへ戻るボタン -->
 <button id="page-top" aria-label="ページ最上部へ戻る">↑</button>
 </div>
-<script>
-    (async function() {
-      const user = 'Itsukaichi-3project';
-      const repo = 'MainPage';
-      const branch = 'main';
-
-      // 1. CSS/JSを動的に生成してPromise化する関数
-      function loadCSS(url) {
-        return new Promise((resolve, reject) => {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = url;
-          link.onload = () => resolve();
-          link.onerror = () => reject(new Error(`CSS読み込み失敗: ${url}`));
-          document.head.appendChild(link);
-        });
-      }
-
-      function loadJS(url) {
-        return new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = url;
-          script.onload = () => resolve();
-          script.onerror = () => reject(new Error(`JS読み込み失敗: ${url}`));
-          document.head.appendChild(script);
-        });
-      }
-
-      try {
-        // 2. version.json を取得（キャッシュを回避するために no-cache を指定）
-        // ※ raw.githack.com を使って直読み、または GitHub Pages 等のURLを指定
-        const versionUrl = `https://raw.githack.com/${user}/${repo}/${branch}/version.json?raw=true`;
-        const res = await fetch(versionUrl, { cache: 'no-cache' });
-        
-        if (!res.ok) throw new Error('version.json の取得に失敗しました');
-        const data = await res.json();
-        
-        // 最新コミットハッシュ（更新がない場合は前と同じ値＝キャッシュが効く）
-        const versionParam = '?v=' + data.v;
-
-        // 3. 最新バージョンパラメータを付与したURLを設定
-        const jsUrl  = `https://cdn.statically.io/gh/${user}/${repo}@${branch}/main.js${versionParam}`;
-
-        // 4. CSSとJSを並列でロード
-        await Promise.all([
-          loadJS(jsUrl)
-        ]);
-
-        // 5. 読み込み完了後、ローディング画面を解除
-        const loadingScreen = document.getElementById('loading-screen');
-        const mainContent = document.getElementById('main-content');
-
-        loadingScreen.classList.add('hidden');
-        mainContent.classList.add('loaded');
-
-      } catch (error) {
-        console.error(error);
-        
-        // フォールバック処理（バージョン指定なしで読み込みを試みる）
-        const jsUrl  = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/script.js`;
-        
-        Promise.all([loadCSS(cssUrl), loadJS(jsUrl)]).then(() => {
-          document.getElementById('loading-screen').classList.add('hidden');
-          document.getElementById('main-content').classList.add('loaded');
-        }).catch(() => {
-          const loadingText = document.querySelector('.loading-text');
-          if (loadingText) loadingText.textContent = 'ページの読み込みに失敗しました。';
-        });
-      }
-    })();
-  </script>
 </body>
