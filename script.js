@@ -197,3 +197,81 @@ resetButton.addEventListener("click", () => {
 });
 
 render();
+/* =====================================
+   トップに戻る
+===================================== */
+
+function goHome() {
+  closePages()
+
+  document
+    .getElementById("top-page")
+    .classList.remove("hidden");
+  
+}
+/*======================================
+    トップへ戻るボタンの表示制御
+======================================*/
+const pageTopBtn = document.getElementById('page-top');
+
+// 1. スクロール位置に応じてボタンを表示/非表示切り替え
+window.addEventListener('scroll', () => {
+  // 200px以上スクロールしたら 'is-active' クラスを付与
+  if (window.scrollY > 200) {
+    pageTopBtn.classList.add('is-active');
+  } else {
+    pageTopBtn.classList.remove('is-active');
+  }
+});
+
+// 2. ボタンクリック時に最上部へスムーズスクロール
+pageTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' /* なめらかにスクロール */
+  });
+});
+
+/*==========================================
+プロセス表示処理
+==========================================*/
+(function initProcessReveal() {
+    const steps = document.querySelectorAll('.process-reveal');
+    if (!steps.length) return;
+    document.documentElement.classList.add('process-js');
+
+    if (!('IntersectionObserver' in window)) {
+      steps.forEach((step) => step.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          currentObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -35px 0px' });
+    steps.forEach((step) => observer.observe(step));
+  })();
+
+/*=============================================
+マップ関数
+=============================================*/
+const GOOGLE_MY_MAPS_EMBED_URL = 'https://www.google.com/maps/d/embed?mid=1Qqnri_VQ0kdQzX8EJ_DfwzxNvAdB4QI&ehbc=2E312F';
+
+(function showGoogleMyMaps() {
+  const mapArea = document.getElementById('google-map-area');
+  const embedUrl = GOOGLE_MY_MAPS_EMBED_URL.trim();
+  if (!mapArea || !embedUrl) return;
+
+  const frame = document.createElement('iframe');
+  frame.className = 'map-frame';
+  frame.src = embedUrl;
+  frame.title = '五日市の実施店舗マップ';
+  frame.loading = 'lazy';
+  frame.referrerPolicy = 'no-referrer-when-downgrade';
+  frame.allowFullscreen = true;
+  mapArea.replaceChildren(frame);
+})();
