@@ -754,7 +754,7 @@ const results = {
     title: "英語カルタ",
     titleParts: [{ text: "英語", color: "#D94B4B" }, { text: "カルタ", color: "#E88AA4" }],
     description: "1組のみんなが作った英語カルタです。\n英語カルタと神経衰弱ともに楽しめる物です。読み札にも絵や英単語が描いてあるため、読み手も英語を楽しめるようになっています！",
-    discription2:"2組のみんなが作った英語カルタです。\n子どもでもわかりやすい馴染みのある単語で作っており、QRで音声を流すことも可能です。１人でも家族でも！",
+    discription2:　"2組のみんなが作った英語カルタです。\n子どもでもわかりやすい馴染みのある単語で作っており、QRで音声を流すことも可能です。１人でも家族でも！",
     number:1
   },
   "result-3": {
@@ -845,10 +845,10 @@ function render() {
     link.addEventListener("click",()=>{window.location.href = window.location.pathname + `?page=Class&class=${result.number}`})
     let description2 = null
     let link2 = null
-    if(result.discription2){
+    if(result.description2){
       description2 = document.createElement("p")
       description2.className= "description"
-      description.textContent = result.description2
+      description2.textContent = result.description2
       link2 = document.createElement("p");
       link2.textContent="ページに移動↗"
       link2.addEventListener("click",()=>{window.location.href = window.location.pathname + `?page=Class&class=${result.number+1}`})
