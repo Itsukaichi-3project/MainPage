@@ -844,17 +844,18 @@ function render() {
     link.textContent="ページに移動↗"
     link.addEventListener("click",()=>{window.location.href = window.location.pathname + `?page=Class&class=${result.number}`})
     let description2 = null
+    let link2 = null
     if(result.discription2){
       description2 = document.createElement("p")
       description2.className= "description"
       description.textContent = result.description2
-      const link = document.createElement("p");
-      link.textContent="ページに移動↗"
-      link.addEventListener("click",()=>{window.location.href = window.location.pathname + `?page=Class&class=${result.number+1}`})
+      link2 = document.createElement("p");
+      link2.textContent="ページに移動↗"
+      link2.addEventListener("click",()=>{window.location.href = window.location.pathname + `?page=Class&class=${result.number+1}`})
     }
-    card.append(badges, title, taglines, sourceLabel, description);
+    card.append(badges, title, taglines, sourceLabel, description,link);
     if(description2){
-      card.append(description2)
+      card.append(description2,link2)
     }
     panel.append(card);
   } else {
