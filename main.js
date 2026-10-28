@@ -753,32 +753,39 @@ const results = {
     ],
     title: "英語カルタ",
     titleParts: [{ text: "英語", color: "#D94B4B" }, { text: "カルタ", color: "#E88AA4" }],
-    description: "1組のみんなが作った英語カルタです。\n英語カルタと神経衰弱ともに楽しめる物です。読み札にも絵や英単語が描いてあるため、読み手も英語を楽しめるようになっています！\n\n2組のみんなが作った英語カルタです。\n子どもでもわかりやすい馴染みのある単語で作っており、QRで音声を流すことも可能です。１人でも家族でも！"
+    description: "1組のみんなが作った英語カルタです。\n英語カルタと神経衰弱ともに楽しめる物です。読み札にも絵や英単語が描いてあるため、読み手も英語を楽しめるようになっています！",
+    discription2:"2組のみんなが作った英語カルタです。\n子どもでもわかりやすい馴染みのある単語で作っており、QRで音声を流すことも可能です。１人でも家族でも！",
+    number:1
   },
   "result-3": {
     classes: [{ name: "3組", color: "#D9B62B", tagline: "五日市の言葉と遊ぼう" }],
     title: "国語カルタ",
-    description: "3組のみんなが作った国語カルタです。\nQRで音声の読み上げ機能をつけたカルタを作りました。お店での待ち時間に使って欲しいです！"
+    description: "3組のみんなが作った国語カルタです。\nQRで音声の読み上げ機能をつけたカルタを作りました。お店での待ち時間に使って欲しいです！",
+    number:3
   },
   "result-4": {
     classes: [{ name: "4組", color: "#E87B32", tagline: "みんなで楽しく歌おう" }],
     title: "絵本「だぁれの？」の歌",
-    description: "4組のみんなが作った歌です。\n地域の子どもたちが楽しく歌ってくれるように絵本の世界観そのままにして作りました。５組の「だぁれの？」という絵本の歌です。絵本のQRを読み込んで聞いてみて下さい！"
+    description: "4組のみんなが作った歌です。\n地域の子どもたちが楽しく歌ってくれるように絵本の世界観そのままにして作りました。５組の「だぁれの？」という絵本の歌です。絵本のQRを読み込んで聞いてみて下さい！",
+    number:4
   },
   "result-5": {
     classes: [{ name: "5組", color: "#8064A8", tagline: "親子で一緒に会話して絵本を楽しもう" }],
     title: "絵本",
-    description: "5組のみんなが作った絵本です。\n五日市のコイン通りに置いてある十二支の銅像を入れた五日市ならではの絵本を作りました。繰り返し読んでも楽しめる絵本となっています！"
+    description: "5組のみんなが作った絵本です。\n五日市のコイン通りに置いてある十二支の銅像を入れた五日市ならではの絵本を作りました。繰り返し読んでも楽しめる絵本となっています！",
+    number:5
   },
   "result-6": {
     classes: [{ name: "6組", color: "#4D83C4", tagline: "身近な道具で、サイエンス体験！" }],
     title: "サイエンスグッズ",
-    description: "6組のみんなが作ったサイエンスグッズです。\nお家でも再現しやすく、アレンジしやすいように、身の回りのものを使ってつくりました。ぜひ、チャレンジしてみてください！"
+    description: "6組のみんなが作ったサイエンスグッズです。\nお家でも再現しやすく、アレンジしやすいように、身の回りのものを使ってつくりました。ぜひ、チャレンジしてみてください！",
+    number:6
   },
   "result-7": {
     classes: [{ name: "7組", color: "#5A9A63", tagline: "ぱっしーとおとのぼうけんにでかけよう！" }],
     title: "絵本",
-    description: "7組のみんなが作った絵本です。\n各グループで工夫して絵本を６冊作りました。子どもが興味を持てるようなキャラにしました。たくさん読んでください！"
+    description: "7組のみんなが作った絵本です。\n各グループで工夫して絵本を６冊作りました。子どもが興味を持てるようなキャラにしました。たくさん読んでください！",
+    number:7
   }
 };
 
@@ -833,7 +840,22 @@ function render() {
     const description = document.createElement("p");
     description.className = "description";
     description.textContent = result.description;
+    const link = document.createElement("p");
+    link.textContent="ページに移動↗"
+    link.addEventListener("click",()=>{window.location.href = window.location.pathname + `?page=Class&class=${result.number}`})
+    let description2 = null
+    if(result.discription2){
+      description2 = document.createElement("p")
+      description2.className= "description"
+      description.textContent = result.description2
+      const link = document.createElement("p");
+      link.textContent="ページに移動↗"
+      link.addEventListener("click",()=>{window.location.href = window.location.pathname + `?page=Class&class=${result.number+1}`})
+    }
     card.append(badges, title, taglines, sourceLabel, description);
+    if(description2){
+      card.append(description2)
+    }
     panel.append(card);
   } else {
     const question = questions[current];
