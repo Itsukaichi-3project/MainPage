@@ -955,7 +955,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const pageState = urlParams.get("page") ?? "Main"
 const classNumberSt = urlParams.get("class") ?? ""
 const viewTypeSt = urlParams.get("viewtype") ?? "Main"
-step_count(pageState+classNumberSt)
+count(pageState+classNumberSt)
 
 if (!pageState){
   goHome();
