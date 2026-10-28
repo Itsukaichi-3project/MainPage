@@ -576,23 +576,7 @@
       });
       const data = await res.json();
       const version = data.v; // push毎に変わるコミットハッシュ
-      // 読み込みたいHTMLのURL（jsDelivr経由でGitHubから取得）
-      // ※末尾に ?v=タイムスタンプ を付けてキャッシュを回避
-      const targetUrl = 'https://cdn.statically.io/gh/Itsukaichi-3project/Mainpage@main/index.html?v=' + version;
-
-      try {
-        const response = await fetch(targetUrl);
-        if (!response.ok) throw new Error('HTMLの取得に失敗しました');
-        
-        const htmlText = await response.text();
-
-        // 取得したHTML文字列でページ全体を置き換える
-        document.body.innerHTML=htmlText;
-      } catch (error) {
-        console.error(error);
-        document.body.innerHTML = 'ページの読み込みエラーが発生しました。';
-      }
-     loadJS("https://cdn.statically.io/gh/Itsukaichi-3project/Mainpage@main/main.js?v="+version)
+     loadJS("https://cdn.jsdelivr.net/gh/Itsukaichi-3project/Mainpage@main/main.js?v="+version)
     })();
     
 
