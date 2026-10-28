@@ -1075,6 +1075,17 @@ footer {
 .result h2 { margin: 0 0 9px; color: var(--result-color); font-size: 24px; }
 .result p { margin: 0; }
 .result .description { white-space: pre-line; }
+.link{
+  color: #0066cc;
+  text-decoration: none;
+}
+.link:hover{
+  color: #ff3300;
+  text-decoration: underline;
+}
+.link:active{
+  color: #ff0000;
+}
 .result-taglines { display: grid; gap: 3px; margin: 0 0 14px; }
 .result-tagline { margin: 0; color: #777; font-weight: 700; }
 .result .source-label { margin: 0 0 6px; color: var(--muted); font-size: 13px; font-weight: 700; }

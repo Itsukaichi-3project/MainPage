@@ -841,6 +841,7 @@ function render() {
     description.className = "description";
     description.textContent = result.description;
     const link = document.createElement("p");
+    link.className = "link"
     link.textContent="ページに移動↗"
     link.addEventListener("click",()=>{window.location.href = window.location.pathname + `?page=Class&class=${result.number}`})
     let description2 = null
@@ -850,6 +851,7 @@ function render() {
       description2.className= "description"
       description2.textContent = result.description2
       link2 = document.createElement("p");
+      link2.className = "link"
       link2.textContent="ページに移動↗"
       link2.addEventListener("click",()=>{window.location.href = window.location.pathname + `?page=Class&class=${result.number+1}`})
     }
