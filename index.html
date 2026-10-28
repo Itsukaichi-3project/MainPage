@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Itsukaichi-3project/MainPage/main/icon.png">
+  <title>五日市子育て支援プロジェクト</title>
+</head>
 <body>
 <div id="main-content">
 <header>
@@ -554,4 +560,43 @@
 <!-- トップへ戻るボタン -->
 <button id="page-top" aria-label="ページ最上部へ戻る">↑</button>
 </div>
+  <script>
+    function loadJS(url) {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = url;
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error(`JS読み込み失敗: ${url}`));
+          document.head.appendChild(script);
+        });
+     }
+    (async function() {
+      const res = await fetch('https://raw.githack.com/Itsukaichi-3project/MainPage/main/version.json?raw=true', {
+        cache: 'no-cache'
+      });
+      const data = await res.json();
+      const version = data.v; // push毎に変わるコミットハッシュ
+      // 読み込みたいHTMLのURL（jsDelivr経由でGitHubから取得）
+      // ※末尾に ?v=タイムスタンプ を付けてキャッシュを回避
+      const targetUrl = 'https://cdn.statically.io/gh/Itsukaichi-3project/Mainpage@main/index.html?v=' + version;
+
+      try {
+        const response = await fetch(targetUrl);
+        if (!response.ok) throw new Error('HTMLの取得に失敗しました');
+        
+        const htmlText = await response.text();
+
+        // 取得したHTML文字列でページ全体を置き換える
+        document.body.innerHTML=htmlText;
+      } catch (error) {
+        console.error(error);
+        document.body.innerHTML = 'ページの読み込みエラーが発生しました。';
+      }
+     loadJS("https://cdn.statically.io/gh/Itsukaichi-3project/Mainpage@main/main.js?v="+version)
+    })();
+    
+
+
+  </script>
 </body>
+</html>
