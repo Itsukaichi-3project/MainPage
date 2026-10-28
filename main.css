@@ -1,3 +1,14 @@
+/* --- 1. 全体設定と非表示制御 --- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+#main-content {
+  transition: opacity 0.5s ease;
+  opacity: 1;
+  visibility: visible;
+}
 .invisible{
   display:none;
 }
@@ -594,24 +605,14 @@ footer {
   border: 0;
   font: inherit;
   cursor: pointer;
-  border: 0;
-  font: inherit;
-  cursor: pointer;
-
   margin-top: 18px;
-
   padding: 15px 22px;
-
   background: var(--current-color);
   color: #fff;
-
   text-decoration: none;
-
   border-radius: 12px;
-
   font-weight: 700;
 }
-
 .external-link:hover:not(:disabled) {
   opacity: 0.9;
 }

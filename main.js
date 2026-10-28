@@ -1,204 +1,3 @@
-/*======================================
-    アクセス数API関数
-======================================*/
-const API_URL = 'https://mainworker.itsukaichi-3project.workers.dev';
-
-/**
- * 1. 指定した日数前の日付文字列（YYYY-MM-DD）を返す関数
- * @param {number} daysAgo - 0なら今日、1なら昨日、2なら一昨日...
- */
-function getDateString(daysAgo = 0) {
-    const date = new Date();
-    date.setDate(date.getDate() - daysAgo);
-    
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    
-    return `${year}-${month}-${day}`;
-}
-function getMonthString(monthAgo = 0) {
-  const date = new Date()
-  date.setDate(1)
-  date.setMonth(date.getMonth() - monthAgo)
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2,'0')
-  return `${year}-${month}`
-}
-
-function getCurrentJstHour() {
-    const formatter = new Intl.DateTimeFormat('ja-JP', {
-        timeZone: 'Asia/Tokyo',
-        hour: 'numeric',
-        hour12: false // 24時間表記にする（trueにすると午前/午後になる）
-    });
-    
-    // format() は文字列を返すため、数的に扱いたい場合は parseInt で数値化する
-    return parseInt(formatter.format(new Date()), 10);
-}
-
-/**
- * 2. 指定したKVのkeyの値を呼び出す関数（取得）
- */
-async function getKeyValue(key) {
-    try {
-        const res = await fetch(`${API_URL}/?action=get&key=${encodeURIComponent(key)}`);
-        const data = await res.json();
-        return data.success ? data.value : null;
-    } catch (err) {
-        console.error('KV取得エラー:', err);
-        return null;
-    }
-}
-
-/**
- * 3. 指定したKVのkeyに値を書き込む関数（保存）
- */
-async function setKeyValue(key, value) {
-    try {
-        const res = await fetch(`${API_URL}/?action=set&key=${encodeURIComponent(key)}&value=${encodeURIComponent(value)}`);
-        const data = await res.json();
-        return data.success;
-    } catch (err) {
-        console.error('KV保存エラー:', err);
-        return false;
-    }
-}
-
-async function incrementValue(key){
-  const currentStr = await getKeyValue(key);
-  const currentVal = currentStr !== null ? parseInt(currentStr, 10) : 0;
-  const newVal = currentVal + 1;
-    
-  // 新しい値を保存する
-  await setKeyValue(key, newVal);
-  return newVal;
-}
-/**
- * 4. 【更新】指定したKVのkeyからJSONを取得し、その中の特定のキーの値を取り出す関数
- * @param {string} kvKey - KVのキー名（例: 'ViewsDay'）
- * @param {string} innerKey - JSON内のキー名（例: '2026-10-12' や 'total'）
- * @param {any} defaultValue - 値が存在しない場合のデフォルト値
- */
-async function getInnerValue(kvKey, innerKey, defaultValue = 0) {
-    const rawValue = await getKeyValue(kvKey);
-    try {
-        const data = JSON.parse(rawValue);
-        return data[innerKey] ?? defaultValue;
-    } catch (e) {
-        return defaultValue;
-    }
-}
-
-/**
- * 5. 【更新】指定したKVのkeyからJSONを取得し、その中の特定のキーの値を書き換えて保存する関数
- * @param {string} kvKey - KVのキー名（例: 'ViewsDay'）
- * @param {string} innerKey - JSON内のキー名（例: '2026-10-12' や 'total'）
- * @param {any} value - 新しく設定する値
- */
-async function setInnerValue(kvKey, innerKey, value) {
-    // 現在のJSONデータを取得
-    const rawValue = await getKeyValue(kvKey);
-    let data = {};
-    try {
-        console.log("setInnerValueのJSON取得は実行された。")
-        const parsed=JSON.parse(rawValue)
-        if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)){
-          data = parsed;
-        }else{
-          data={};
-        }
-    } catch (e) {
-        data = {};
-        console.log("setInnerValueのJSON取得はエラーになった。")
-    }
-    
-    // 特定のキーの値を書き換え
-    data[innerKey] = value;
-    
-    // JSON文字列に戻してKVに保存
-    const updatedJsonString = JSON.stringify(data);
-    return await setKeyValue(kvKey, updatedJsonString);
-}
-
-/**
- * 6. 【更新】指定したKVのkeyと内部キーを指定してインクリメント（+1して保存）する関数
- * @param {string} kvKey - KVのキー名（例: 'ViewsDay'）
- * @param {string} innerKey - JSON内のキー名（例: getDateString(0) や 'totalCount'）
- */
-async function incrementInnerValue(kvKey, innerKey) {
-    // 1. 現在のインナー値を取得する（デフォルトは0）
-    const currentValue = await getInnerValue(kvKey, innerKey, 0);
-    
-    // 2. +1する
-    const newValue = currentValue + 1;
-    
-    // 3. すでに存在する setInnerValue を使って安全に保存する
-    await setInnerValue(kvKey, innerKey, newValue);
-    
-    return newValue;
-}
-
-async function incrementInnerValuewithToday(keyname){
-  const today=getDateString()
-  console.log(today)
-  const todayVal = await incrementInnerValue(`${keyname}Days`,`${keyname}_${today}`)
-  const allVal = await incrementValue(keyname)
-  return {today:todayVal,all:allVal}
-}
-
-async function incrementKey(keyname){
-  const today=getDateString()
-  const month = getMonthString()
-  const hour = getCurrentJstHour()
-  const todayVal = await incrementInnerValue(`${keyname}Days`,`${keyname}_${today}`)
-  const monthVal = await incrementInnerValue(`${keyname}Monthes`,`${keyname}_${month}`)
-  const hourVal = await incrementInnerValue(`${keyname}Hours`,`${keyname}_${hour}`)
-  const allVal = await incrementValue(keyname)
-  return {today:todayVal,all:allVal,month:monthVal,hour:hourVal}
-}
-
-async function getInnerValuewithToday(keyname){
-  const today = getDateString()
-  const yesterday = getDateString(1)
-  const todayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${today}`)
-  const yesterdayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${yesterday}`)
-  const allVal = await getKeyValue(keyname)
-  return {today:todayVal,all:allVal,yesterday:yesterdayVal};
-}
-
-/*======================================
-    表示数表示関数
-======================================*/
-
-async function openViews(pagetype = "Main"){
-  closePages()
-  document
-    .getElementById("view-page")
-    .classList.remove("hidden")
-  
-  const daysrawData = await getKeyValue(`View_${pagetype}Days`)
-  const monthesrawData = await getKeyValue(`View_${pagetype}Monthes`)
-  const hourrawData = await getKeyValue(`View_${pagetype}Hours`)
-  const daysData = daysrawData ? JSON.parse(daysrawData) : {}
-  const monthesData = monthesrawData ? JSON.parse(monthesrawData) : {}
-  const hoursData = hourrawData ? JSON.parse(hourrawData) : {}
-  const viewPage = document.getElementById("view-page")
-  viewPage.style.setProperty("--current-color","#444")
-  const bascs = await getInnerValuewithToday(`View_${pagetype}`)
-  document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
-
-  for(let i =0;i<7;i++){
-    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)} : ${daysData[`View_${pagetype}_${getDateString(i)}`] || 0} <br>`
-  }
-  for(let i = 0; i<12; i++){
-    document.getElementById("viewPage_month").innerHTML += `${getMonthString(i)} : ${monthesData[`View_${pagetype}_${getMonthString(i)}`] || 0} <br>`
-  }
-  for(let i =0; i<24; i++){
-    document.getElementById("viewPage_time").innerHTML += `${i}:00~${i+1}:00 : ${hoursData[`View_${pagetype}_${i}`] || 0} <br>`
-  }
-}
-
 /* =====================================
     ページ管理用関数
 ===================================== */
@@ -799,7 +598,7 @@ const history = [];
 function render() {
   panel.replaceChildren();
   const isResult = Object.prototype.hasOwnProperty.call(results, current);
-  step_count.textContent = isResult ? "できた！" : "しつもん " + (history.length + 1);
+  step_count.textContent = isResult ? "結果" : "質問 " + (history.length + 1);
 
   if (isResult) {
     const result = results[current];
@@ -956,56 +755,7 @@ function goAncate(){
   window.location.href="https://docs.google.com/forms/d/e/1FAIpQLSdfpfIci9iykP1b3fJvDNePSY6cwy2ZkW6E-o2_Hkt1PDCzCA/viewform?usp=dialog"
 }
 
-/*=========================================
-    アクセス数制御
-=========================================*/
 
-
-async function count(pageState = "Main"){
-  const today = getDateString()
-  const yesterday = getDateString(1)
-  const rawData= await getKeyValue("View_MainDays")
-  const daysData = JSON.parse(rawData)
-  console.log(daysData)
-  const all = await getKeyValue("View_Main")
-  document.getElementById("view").innerHTML=`本日:${String(daysData[`View_Main_${today}`] || 0)} <br> 昨日:${String(daysData[`View_Main_${yesterday}`] || 0)} <br> 総数:${String(all)}`
-  await incrementKey(`View_${pageState}`)
-}
-
-
-/*======================================
-    リンクルート管理
-======================================*/
-const urlParams = new URLSearchParams(window.location.search);
-const pageState = urlParams.get("page") ?? "Main"
-const classNumberSt = urlParams.get("class") ?? ""
-const viewTypeSt = urlParams.get("viewtype") ?? "Main"
-count(pageState+classNumberSt)
-
-if (!pageState){
-  goHome();
-}else if(pageState=="Main"){
-  goHome();
-}else if(pageState=="Class"){
-  const classNumber = Number(classNumberSt)
-  if ([0,1,2,3,4,5,6,7].includes(classNumber)){
-    openClass(classNumber)
-  }else{
-    console.log("クラス番号が有効ではありません")
-  }
-}else if(pageState=="View"){
-  openViews(viewTypeSt)
-}else if(pageState=="Analysis"){
-  openAnalysis()
-}
-/*==========================================
-viewページセレクト処理
-==========================================*/
-const typeSelect = document.getElementById("view_type")
-typeSelect.addEventListener("change",(event) => {
-  const type = event.target.value;
-  window.location.href=window.location.pathname + `?page=View&viewtype=${type}`
-});
 
 /*==========================================
 プロセス表示処理
@@ -1050,3 +800,324 @@ const GOOGLE_MY_MAPS_EMBED_URL = 'https://www.google.com/maps/d/embed?mid=1Qqnri
   frame.allowFullscreen = true;
   mapArea.replaceChildren(frame);
 })();
+
+
+
+/*======================================
+ボタン関係
+======================================*/
+function goMainPage(){
+  window.location.href = window.location.pathname + '?page=Main'
+}
+const button_View = document.getElementById("view")
+button_View.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=View'
+})
+const button_Ancate = document.getElementById("ancateButton")
+ancateButton.addEventListener("click",goAncate)
+const button_class_0 = document.getElementById("class-card-0")
+const button_class_1 = document.getElementById("class-card-1")
+const button_class_2 = document.getElementById("class-card-2")
+const button_class_3 = document.getElementById("class-card-3")
+const button_class_4 = document.getElementById("class-card-4")
+const button_class_5 = document.getElementById("class-card-5")
+const button_class_6 = document.getElementById("class-card-6")
+const button_class_7 = document.getElementById("class-card-7")
+button_class_0.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Analysis'
+})
+button_class_1.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=1'
+})
+button_class_2.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=2'
+})
+button_class_3.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=3'
+})
+button_class_4.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=4'
+})
+button_class_5.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=5'
+})
+button_class_6.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=6'
+})
+button_class_7.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=7'
+})
+const button_back_1 = document.getElementById("back-button-1")
+button_back_1.addEventListener("click",goMainPage)
+const button_back_2 = document.getElementById("back-button-2")
+button_back_2.addEventListener("click",goMainPage)
+const button_back_3 = document.getElementById("back-button-3")
+button_back_3.addEventListener("click",goMainPage)
+const button_footer_1 = document.getElementById("footer-1")
+const button_footer_2 = document.getElementById("footer-2")
+const button_footer_3 = document.getElementById("footer-3")
+const button_footer_4 = document.getElementById("footer-4")
+const button_footer_5 = document.getElementById("footer-5")
+const button_footer_6 = document.getElementById("footer-6")
+const button_footer_7 = document.getElementById("footer-7")
+const button_footer_0 = document.getElementById("footer-0")
+button_footer_0.addEventListener("click",goMainPage)
+button_footer_1.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=1'
+})
+button_footer_2.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=2'
+})
+button_footer_3.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=3'
+})
+button_footer_4.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=4'
+})
+button_footer_5.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=5'
+})
+button_footer_6.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=6'
+})
+button_footer_7.addEventListener("click",()=>{
+  window.location.href = window.location.pathname + '?page=Class&class=7'
+})
+/*======================================
+    リンクルート管理
+======================================*/
+const urlParams = new URLSearchParams(window.location.search);
+const pageState = urlParams.get("page") ?? "Main"
+const classNumberSt = urlParams.get("class") ?? ""
+const viewTypeSt = urlParams.get("viewtype") ?? "Main"
+count(pageState+classNumberSt)
+
+if (!pageState){
+  goHome();
+}else if(pageState=="Main"){
+  goHome();
+}else if(pageState=="Class"){
+  const classNumber = Number(classNumberSt)
+  if ([0,1,2,3,4,5,6,7].includes(classNumber)){
+    openClass(classNumber)
+  }else{
+    console.log("クラス番号が有効ではありません")
+  }
+}else if(pageState=="View"){
+  openViews(viewTypeSt)
+}else if(pageState=="Analysis"){
+  openAnalysis()
+}
+/*======================================
+    アクセス数API関数
+======================================*/
+const API_URL = 'https://mainworker.itsukaichi-3project.workers.dev';
+
+/**
+ * 1. 指定した日数前の日付文字列（YYYY-MM-DD）を返す関数
+ * @param {number} daysAgo - 0なら今日、1なら昨日、2なら一昨日...
+ */
+function getDateString(daysAgo = 0) {
+    const date = new Date();
+    date.setDate(date.getDate() - daysAgo);
+    
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+}
+function getMonthString(monthAgo = 0) {
+  const date = new Date()
+  date.setDate(1)
+  date.setMonth(date.getMonth() - monthAgo)
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2,'0')
+  return `${year}-${month}`
+}
+
+function getCurrentJstHour() {
+    const formatter = new Intl.DateTimeFormat('ja-JP', {
+        timeZone: 'Asia/Tokyo',
+        hour: 'numeric',
+        hour12: false // 24時間表記にする（trueにすると午前/午後になる）
+    });
+    
+    // format() は文字列を返すため、数的に扱いたい場合は parseInt で数値化する
+    return parseInt(formatter.format(new Date()), 10);
+}
+
+/**
+ * 2. 指定したKVのkeyの値を呼び出す関数（取得）
+ */
+async function getKeyValue(key) {
+    try {
+        const res = await fetch(`${API_URL}/?action=get&key=${encodeURIComponent(key)}`);
+        const data = await res.json();
+        return data.success ? data.value : null;
+    } catch (err) {
+        console.error('KV取得エラー:', err);
+        return null;
+    }
+}
+
+/**
+ * 3. 指定したKVのkeyに値を書き込む関数（保存）
+ */
+async function setKeyValue(key, value) {
+    try {
+        const res = await fetch(`${API_URL}/?action=set&key=${encodeURIComponent(key)}&value=${encodeURIComponent(value)}`);
+        const data = await res.json();
+        return data.success;
+    } catch (err) {
+        console.error('KV保存エラー:', err);
+        return false;
+    }
+}
+
+async function incrementValue(key){
+  const currentStr = await getKeyValue(key);
+  const currentVal = currentStr !== null ? parseInt(currentStr, 10) : 0;
+  const newVal = currentVal + 1;
+    
+  // 新しい値を保存する
+  await setKeyValue(key, newVal);
+  return newVal;
+}
+/**
+ * 4. 【更新】指定したKVのkeyからJSONを取得し、その中の特定のキーの値を取り出す関数
+ * @param {string} kvKey - KVのキー名（例: 'ViewsDay'）
+ * @param {string} innerKey - JSON内のキー名（例: '2026-10-12' や 'total'）
+ * @param {any} defaultValue - 値が存在しない場合のデフォルト値
+ */
+async function getInnerValue(kvKey, innerKey, defaultValue = 0) {
+    const rawValue = await getKeyValue(kvKey);
+    try {
+        const data = JSON.parse(rawValue);
+        return data[innerKey] ?? defaultValue;
+    } catch (e) {
+        return defaultValue;
+    }
+}
+
+/**
+ * 5. 【更新】指定したKVのkeyからJSONを取得し、その中の特定のキーの値を書き換えて保存する関数
+ * @param {string} kvKey - KVのキー名（例: 'ViewsDay'）
+ * @param {string} innerKey - JSON内のキー名（例: '2026-10-12' や 'total'）
+ * @param {any} value - 新しく設定する値
+ */
+async function setInnerValue(kvKey, innerKey, value) {
+    // 現在のJSONデータを取得
+    const rawValue = await getKeyValue(kvKey);
+    let data = {};
+    try {
+        console.log("setInnerValueのJSON取得は実行された。")
+        const parsed=JSON.parse(rawValue)
+        if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)){
+          data = parsed;
+        }else{
+          data={};
+        }
+    } catch (e) {
+        data = {};
+        console.log("setInnerValueのJSON取得はエラーになった。")
+    }
+    
+    // 特定のキーの値を書き換え
+    data[innerKey] = value;
+    
+    // JSON文字列に戻してKVに保存
+    const updatedJsonString = JSON.stringify(data);
+    return await setKeyValue(kvKey, updatedJsonString);
+}
+
+/**
+ * 6. 【更新】指定したKVのkeyと内部キーを指定してインクリメント（+1して保存）する関数
+ * @param {string} kvKey - KVのキー名（例: 'ViewsDay'）
+ * @param {string} innerKey - JSON内のキー名（例: getDateString(0) や 'totalCount'）
+ */
+async function incrementInnerValue(kvKey, innerKey) {
+    // 1. 現在のインナー値を取得する（デフォルトは0）
+    const currentValue = await getInnerValue(kvKey, innerKey, 0);
+    
+    // 2. +1する
+    const newValue = currentValue + 1;
+    
+    // 3. すでに存在する setInnerValue を使って安全に保存する
+    await setInnerValue(kvKey, innerKey, newValue);
+    
+    return newValue;
+}
+
+
+async function incrementKey(keyname){
+  const today=getDateString()
+  const month = getMonthString()
+  const hour = getCurrentJstHour()
+  const todayVal = await incrementInnerValue(`${keyname}Days`,`${keyname}_${today}`)
+  const monthVal = await incrementInnerValue(`${keyname}Monthes`,`${keyname}_${month}`)
+  const hourVal = await incrementInnerValue(`${keyname}Hours`,`${keyname}_${hour}`)
+  const allVal = await incrementValue(keyname)
+  return {today:todayVal,all:allVal,month:monthVal,hour:hourVal}
+}
+
+async function getInnerValuewithToday(keyname){
+  const today = getDateString()
+  const yesterday = getDateString(1)
+  const todayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${today}`)
+  const yesterdayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${yesterday}`)
+  const allVal = await getKeyValue(keyname)
+  return {today:todayVal,all:allVal,yesterday:yesterdayVal};
+}
+/*=========================================
+    アクセス数制御
+=========================================*/
+async function count(pageState = "Main"){
+  const today = getDateString()
+  const yesterday = getDateString(1)
+  const rawData= await getKeyValue("View_MainDays")
+  const daysData = JSON.parse(rawData)
+  console.log(daysData)
+  const all = await getKeyValue("View_Main")
+  document.getElementById("view").innerHTML=`本日:${String(daysData[`View_Main_${today}`] || 0)} <br> 昨日:${String(daysData[`View_Main_${yesterday}`] || 0)} <br> 総数:${String(all)}`
+  await incrementKey(`View_${pageState}`)
+}
+/*======================================
+    表示数表示関数
+======================================*/
+
+async function openViews(pagetype = "Main"){
+  closePages()
+  document
+    .getElementById("view-page")
+    .classList.remove("hidden")
+  
+  const daysrawData = await getKeyValue(`View_${pagetype}Days`)
+  const monthesrawData = await getKeyValue(`View_${pagetype}Monthes`)
+  const hourrawData = await getKeyValue(`View_${pagetype}Hours`)
+  const daysData = daysrawData ? JSON.parse(daysrawData) : {}
+  const monthesData = monthesrawData ? JSON.parse(monthesrawData) : {}
+  const hoursData = hourrawData ? JSON.parse(hourrawData) : {}
+  const viewPage = document.getElementById("view-page")
+  viewPage.style.setProperty("--current-color","#444")
+  const bascs = await getInnerValuewithToday(`View_${pagetype}`)
+  document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
+
+  for(let i =0;i<7;i++){
+    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)} : ${daysData[`View_${pagetype}_${getDateString(i)}`] || 0} <br>`
+  }
+  for(let i = 0; i<12; i++){
+    document.getElementById("viewPage_month").innerHTML += `${getMonthString(i)} : ${monthesData[`View_${pagetype}_${getMonthString(i)}`] || 0} <br>`
+  }
+  for(let i =0; i<24; i++){
+    document.getElementById("viewPage_time").innerHTML += `${i}:00~${i+1}:00 : ${hoursData[`View_${pagetype}_${i}`] || 0} <br>`
+  }
+}
+/*==========================================
+viewページセレクト処理
+==========================================*/
+const typeSelect = document.getElementById("view_type")
+typeSelect.addEventListener("change",(event) => {
+  const type = event.target.value;
+  window.location.href=window.location.pathname + `?page=View&viewtype=${type}`
+});

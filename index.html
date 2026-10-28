@@ -12,7 +12,7 @@
     <p class="site-subtitle">
       7クラスがつくる、五日市のための取り組み
     </p>
-    <a class="view" id="view" onclick="window.location.href = window.location.pathname + '?page=View'">表示数:</a>
+    <a class="view" id="view">表示数:</a>
   </div>
 
 </header>
@@ -25,7 +25,7 @@
      トップページ
 ================================= -->
 <section class=ancate>
-  <div class="ancateButton" id="ancateButton" onclick="goAncate()">
+  <div class="ancateButton" id="ancateButton">
     五日市のさらなる改善のためアンケートにご協力ください。(googleフォームページに移動します)
   </div>
 </section>
@@ -145,9 +145,9 @@
 
   <div class="class-grid">
     <button
+      id="class-card-0"
       class="class-card"
       style="--class-color:#000;"
-      onclick="window.location.href = window.location.pathname + '?page=Analysis'"
     >
       
       <div class="class-number">
@@ -166,9 +166,9 @@
     <!-- 1組 -->
 
     <button
+      id="class-card-1"
       class="class-card"
       style="--class-color:#D94B4B;"
-      onclick="window.location.href = window.location.pathname + '?page=Class&class=1'"
     >
       
       <div class="class-number">
@@ -189,9 +189,9 @@
     <!-- 2組 -->
 
     <button
+      id="class-card-2"
       class="class-card"
       style="--class-color:#E88AA4;"
-      onclick="window.location.href = window.location.pathname + '?page=Class&class=2'"
     >
 
       <div class="class-number">
@@ -212,9 +212,9 @@
     <!-- 3組 -->
 
     <button
+      id="class-card-3"
       class="class-card"
       style="--class-color:#D9B62B;"
-      onclick="window.location.href = window.location.pathname + '?page=Class&class=3'"
     >
 
       <div class="class-number">
@@ -235,9 +235,9 @@
     <!-- 4組 -->
 
     <button
+      id="class-card-4"
       class="class-card"
       style="--class-color:#E87B32;"
-      onclick="window.location.href = window.location.pathname + '?page=Class&class=4'"
     >
 
       <div class="class-number">
@@ -258,9 +258,9 @@
     <!-- 5組 -->
 
     <button
+      id="class-card-5"
       class="class-card"
       style="--class-color:#8064A8;"
-      onclick="window.location.href = window.location.pathname + '?page=Class&class=5'"
     >
 
       <div class="class-number">
@@ -281,9 +281,9 @@
     <!-- 6組 -->
 
     <button
+      id="class-card-6"
       class="class-card"
       style="--class-color:#4D83C4;"
-      onclick="window.location.href = window.location.pathname + '?page=Class&class=6'"
     >
 
       <div class="class-number">
@@ -304,9 +304,9 @@
     <!-- 7組 -->
 
     <button
+      id="class-card-7"
       class="class-card"
       style="--class-color:#5A9A63;"
-      onclick="window.location.href = window.location.pathname + '?page=Class&class=7'"
     >
 
       <div class="class-number">
@@ -349,8 +349,8 @@
 <section id="work-page" class="hidden">
 
   <button
+    id="back-button-1"
     class="back-button"
-    onclick="window.location.href = window.location.pathname + '?page=Main'"
   >
     ← クラス一覧へ戻る
   </button>
@@ -426,8 +426,8 @@
 <!--分析ページ-->
 <section id="analysis-page" class="hidden poster-section">
   <button
+    id="back-button-2"
     class="back-button"
-    onclick="window.location.href = window.location.pathname + '?page=Main'"
   >
     ← クラス一覧へ戻る
   </button>
@@ -475,8 +475,8 @@
 <!--表示数表示ページ-->
 <section id="view-page" class="hidden">
   <button
+    id="back-button-3"
     class="back-button"
-    onclick="window.location.href = window.location.pathname + '?page=Main'"
   >
     ← クラス一覧へ戻る
   </button>
@@ -516,35 +516,35 @@
 
 <footer>
   <div class="footer-grid">
-    <div class="footer-card" style="--class-color:#555;" onclick="window.location.href = window.location.pathname">
+    <div id="footer-0" class="footer-card" style="--class-color:#555;">
       <div class="footer-number">⌂</div>
       <div class="footer-name">トップページ</div>
     </div>
-    <div class="footer-card" style="--class-color:#D94B4B;" onclick="window.location.href = window.location.pathname + '?page=Class&class=1'">
+    <div id="footer-1" class="footer-card" style="--class-color:#D94B4B;">
       <div class="footer-number">1組</div>
       <div class="footer-name">英語カルタ</div>
     </div>
-    <div class="footer-card" style="--class-color:#E88AA4;" onclick="window.location.href = window.location.pathname + '?page=Class&class=2'">
+    <div id="footer-2" class="footer-card" style="--class-color:#E88AA4;" >
       <div class="footer-number">2組</div>
       <div class="footer-name">英語カルタ</div>
     </div>
-    <div class="footer-card" style="--class-color:#D9B62B;" onclick="window.location.href = window.location.pathname + '?page=Class&class=3'">
+    <div id="footer-3" class="footer-card" style="--class-color:#D9B62B;" >
       <div class="footer-number">3組</div>
       <div class="footer-name">国語カルタ</div>
     </div>
-    <div class="footer-card" style="--class-color:#E87B32;" onclick="window.location.href = window.location.pathname + '?page=Class&class=4'">
+    <div id="footer-4" class="footer-card" style="--class-color:#E87B32;">
       <div class="footer-number">4組</div>
       <div class="footer-name">絵本「だぁれの？」の歌</div>
     </div>
-    <div class="footer-card" style="--class-color:#8064A8;" onclick="window.location.href = window.location.pathname + '?page=Class&class=5'">
+    <div id="footer-5" class="footer-card" style="--class-color:#8064A8;" >
       <div class="footer-number">5組</div>
       <div class="footer-name">絵本</div>
     </div>
-    <div class="footer-card" style="--class-color:#4D83C4;" onclick="window.location.href = window.location.pathname + '?page=Class&class=6'">
+    <div id="footer-6" class="footer-card" style="--class-color:#4D83C4;" >
       <div class="footer-number">6組</div>
       <div class="footer-name">サイエンスグッズ</div>
     </div>
-    <div class="footer-card" style="--class-color:#5A9A63;" onclick="window.location.href = window.location.pathname + '?page=Class&class=7'">
+    <div id="footer-7" class="footer-card" style="--class-color:#5A9A63;" >
       <div class="footer-number">7組</div>
       <div class="footer-name">絵本</div>
     </div>
