@@ -29,7 +29,7 @@ function closePages(){
 ===================================== */
 
 const works = {
-  1: {
+1: {
 
     className: "1組",
 
