@@ -671,12 +671,10 @@
         const versionParam = '?v=' + data.v;
 
         // 3. 最新バージョンパラメータを付与したURLを設定
-        const cssUrl = `https://cdn.statically.io/gh/${user}/${repo}@${branch}/main.css${versionParam}`;
         const jsUrl  = `https://cdn.statically.io/gh/${user}/${repo}@${branch}/main.js${versionParam}`;
 
         // 4. CSSとJSを並列でロード
         await Promise.all([
-          loadCSS(cssUrl),
           loadJS(jsUrl)
         ]);
 
@@ -691,7 +689,6 @@
         console.error(error);
         
         // フォールバック処理（バージョン指定なしで読み込みを試みる）
-        const cssUrl = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/style.css`;
         const jsUrl  = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/script.js`;
         
         Promise.all([loadCSS(cssUrl), loadJS(jsUrl)]).then(() => {
