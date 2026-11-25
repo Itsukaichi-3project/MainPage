@@ -1,26 +1,16 @@
 /* --- 1. 全体設定と非表示制御 --- */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
 #main-content {
   transition: opacity 0.5s ease;
-  opacity: 1;
-  visibility: visible;
 }
 .invisible{
   display:none;
 }
-
 * {
   box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
 }
-
 body {
   margin: 0;
   background: #fafafa;
@@ -33,16 +23,9 @@ body {
     "Meiryo",
     sans-serif;
 }
-
-button {
-  font-family: inherit;
-}
-
 .hidden {
   display: none !important;
 }
-
-
 /* =========================
    ヘッダー
 ========================= */
@@ -239,7 +222,6 @@ main {
 
 footer {
   border-top: 1px solid #e5e5e5; /* 線の太さ 種類 色 */
-  padding-top: 2rem;            /* 線とフッター内のコンテンツの間の余白 */
 }
 
 .footer-grid {
@@ -441,7 +423,6 @@ footer {
 }
 
 .content-box p {
-  margin: 0;
   line-height: 2;
   white-space: pre-line;
 }
@@ -723,7 +704,6 @@ footer {
   border-radius: 50%; /* 丸いボタンにする */
   background-color: #333;
   color: #fff;
-  border: none;
   font-size: 20px;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -957,10 +937,6 @@ footer {
 .poster-card-title { margin: 15px 0 0; font-size: 17px; font-weight: 700; }
 .poster-open { margin-top: 10px; color: #68717a; font-size: 13px; font-weight: 700; }
 .poster-note { margin: 16px 0 0; color: #858c95; font-size: 12px; line-height: 1.7; }
-@media (prefers-reduced-motion: reduce) {
-  .process-js .process-reveal,
-  .process-js .process-reveal.is-visible { opacity: 1; transform: none; transition: none; }
-}
 @media (max-width: 750px) {
   .process-section { margin: 54px 0 62px; }
   .process-timeline { gap: 20px; }
@@ -985,25 +961,29 @@ footer {
 .map-section {
   margin-top: 55px;
 }
-
-.map-frame-wrap {
+.map-container{
   overflow: hidden;
   min-height: 220px;
   border: 1px solid #e8e8e8;
   border-radius: 20px;
   background: #fff;
+  display:flex;
+}
+.map-frame-wrap {
+  overflow: hidden;
+  width:100%;
 }
 
 .map-frame {
   display: block;
   width: 100%;
-  height: 480px;
+  aspect-ratio: 16/9;
   border: 0;
 }
 
 .map-placeholder {
   display: flex;
-  min-height: 260px;
+  aspect-ratio:16 / 9;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -1030,6 +1010,9 @@ footer {
 
 @media (max-width: 750px) {
   .map-frame { height: 380px; }
+}
+.map-sidebar{
+  width:0;
 }
 .choice-list { display: grid; gap: 12px; }
 .choice-button {
